@@ -14,7 +14,9 @@ Orchestrate the companion skills bundled in this plugin. Read each relative entr
 | Ticket decomposition | [to-tickets](skills/to-tickets/SKILL.md) |
 | Independent Standards and Spec review | [code-review](skills/code-review/SKILL.md) |
 
-Prefer these bundled entrypoints over any same-named global skills. Resolve paths from the actual plugin directory, following filesystem links first. In hosts that namespace skills, select this plugin's skill identity from the catalog rather than guessing a namespace spelling. The owner's request for this composed workflow includes use of its explicit-only companion skills.
+Use only these bundled entrypoints for this workflow. Set the bundle root to the directory containing the actual `dev-flow/SKILL.md` you read, following filesystem links first. It is not the project working directory, the plugin manifest directory, or the global skills directory. Read each table path directly beneath that root; for example, `to-spec` is `<bundle-root>/skills/to-spec/SKILL.md`. Resolve links inside a companion relative to that companion's own file.
+
+Companion names are stage labels, not requests to discover or invoke standalone skills. Do not look them up in the global skill catalog, guess a plugin namespace, or require a separate installation. Their absence from the catalog does not mean the bundled files are missing. The owner's request for this composed workflow includes reading and following its explicit-only companion files.
 
 The `dev-flow` directory is the complete installable unit: its companion skills, references, and license notices travel with it. Load companions from these paths even if the host lists only the main entrypoint. Do not search a separate global install for them.
 
@@ -27,6 +29,12 @@ After verifying the PR is merged, automatically delete its remote and local sour
 Apply this preference only to work routed into delivery below. Installing or discussing this skill does not authorize delivering arbitrary project work. A request to stop at a spec, issue, local edit, PR, or review takes precedence. Between the three checkpoints, proceed with authorized issues, commits, pushes, PRs, checks, and fixes without repeated permission requests. Silence, a timeout, requirement agreement, ticket approval, and green CI are not merge approval. New product scope or a newly exposed material tradeoff returns to the user.
 
 There is also a conditional confirmation after the spec draft: check the current repository once for similar feature issues. If plausible overlaps exist, show the candidates and wait for the user's decision before publishing the spec. Ticket decomposition and publication reuse this result without another similarity check.
+
+## Mandatory stage loading and precedence
+
+Before entering any stage, you MUST read that stage's exact bundled `SKILL.md` from the paths in the table above, resolved relative to the directory containing this `SKILL.md` (the installed `dev-flow` package root). Do not resolve a companion by its bare name through the global skill catalog. State the resolved package path read in your working notes, then follow that file for the stage. If the package-local file cannot be read, stop the stage and report the missing path; do not silently substitute a global skill or an inferred procedure.
+
+The confirmation gates in this file are mandatory. You MUST wait for explicit user approval before publishing tickets or starting dependent implementation, unless the user has already approved the exact unchanged breakdown in the current task. Stage skills may add requirements but cannot remove these gates. If instructions still appear to conflict, report the conflict and follow the user's latest explicit instruction; do not choose silently.
 
 ## Route intent before acting
 
@@ -58,13 +66,13 @@ An issue/PR URL identifies an artifact, not an action by itself. Inspect it and 
 
 ### Requirement agreement
 
-Use the bundled `grilling` for unresolved user decisions. Follow its current design-tree rounds: ask the independent questions whose prerequisites are settled, recommend an answer for each, wait for feedback, then recompute the next round. Research facts from the environment, using bounded independent subagents as that skill directs. Cover the actual problem, intended users, behavior, acceptance criteria, scope exclusions, and material failure cases to the depth the change needs.
+Read the bundled [grilling file](skills/grilling/SKILL.md) for unresolved user decisions. Follow its current design-tree rounds: ask the independent questions whose prerequisites are settled, recommend an answer for each, wait for feedback, then recompute the next round. Research facts from the environment, using bounded independent subagents as that skill directs. Cover the actual problem, intended users, behavior, acceptance criteria, scope exclusions, and material failure cases to the depth the change needs.
 
 End with a concise proposed requirement and obtain agreement before delivery. An existing approved spec or a clear implementation instruction that already settles these points is sufficient; do not ask for the same agreement again. A request for full automation does not supply missing product decisions. Do not invent the user's answers to finish an interview.
 
 ### Spec
 
-Read `to-spec` and synthesize the agreed requirement. Decide the testing approach using existing behavior boundaries; the owner has delegated this technical decision. Include observable acceptance criteria and distinguish known requirements from assumptions. Size the spec to the work without inventing scope to fill the template.
+Read the bundled [to-spec file](skills/to-spec/SKILL.md) and synthesize the agreed requirement. Decide the testing approach using existing behavior boundaries; the owner has delegated this technical decision. Include observable acceptance criteria and distinguish known requirements from assumptions. Size the spec to the work without inventing scope to fill the template.
 
 For a new feature, draft the spec, complete the single similarity check below, then publish it as the parent issue on the resolved tracker. Reuse an existing approved spec/parent. For a small fix already fully specified in an issue, use that issue as the spec and executable ticket rather than creating duplicate containers. A planning-only request remains at its requested output boundary.
 
@@ -80,7 +88,7 @@ A material requirement expansion returns to the spec stage; it does not add a se
 
 ### Tickets
 
-Read `to-tickets`; draft independently verifiable slices and real blocking dependencies. Present the proposed ticket titles, delivered behavior, acceptance criteria, and blockers, then explicitly wait for the user's approval before publishing the ticket set or starting its implementation. A small change can have one ticket. Follow the companion's expand/migrate/contract approach when a broad migration cannot be sliced vertically. An already approved breakdown can be reused; material changes to its scope, granularity, or dependencies require fresh confirmation. A request to implement one existing ticket does not require inventing a new split to approve.
+Read the bundled [to-tickets file](skills/to-tickets/SKILL.md); draft independently verifiable slices and real blocking dependencies. Present the proposed ticket titles, delivered behavior, acceptance criteria, and blockers, then explicitly wait for the user's approval before publishing the ticket set or starting its implementation. A small change can have one ticket. Follow the companion's expand/migrate/contract approach when a broad migration cannot be sliced vertically. An already approved breakdown can be reused; material changes to its scope, granularity, or dependencies require fresh confirmation. A request to implement one existing ticket does not require inventing a new split to approve.
 
 Once the user approves the breakdown, publish in dependency order and preserve returned identifiers. Reuse the spec-stage similarity result and user decision; do not run another similarity search before creating tickets. Use native dependency relationships when available; otherwise link blockers explicitly. Use the tracker's actual label vocabulary and do not create labels or change tracker configuration just because a template names one. During ticket publication, preserve the parent as required by `to-tickets`.
 
