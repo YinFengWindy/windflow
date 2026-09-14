@@ -4,8 +4,8 @@ Read this reference when developing or landing work under `dev-flow`. Apply the 
 
 ## Branch and PR
 
-- Fetch the relevant base and inspect the current worktree. Reuse the task's existing branch/PR. Otherwise create `codex/<ticket-or-feature-slug>` from the resolved target branch, unless the user or repo specifies another convention.
-- Preserve existing work. If unrelated edits prevent a clean task diff, use a separate worktree. If the requested work depends on uncommitted user edits, account for them explicitly; do not silently omit, stage, stash, reset, or publish them. Stage only the task's changes.
+- Fetch the relevant base and inspect the current worktree. Reuse the task's existing branch/PR only when it already has an isolated worktree. Otherwise create `codex/<ticket-or-feature-slug>` from the resolved target branch and create a fresh Git worktree for it before implementation, unless the user or repo specifies another convention. Never implement directly in the target/default branch worktree.
+- Preserve existing work. The implementation worktree must be isolated even when the base worktree is clean. If the requested work depends on uncommitted user edits, account for them explicitly; do not silently omit, stage, stash, reset, or publish them. Stage only the task's changes.
 - Default to one independently landable ticket per PR. Use an integration branch for tickets that genuinely cannot land green separately. Track its final integration PR and do not equate intermediate branch merges with delivery to the intended target.
 - Run repo-mandated pre-commit checks before committing. Push a meaningful commit and create or update a draft PR with the concrete behavior change, verification, and spec/ticket links. Use closing references only for tickets the PR fully completes; a partial ticket PR must not close the parent feature.
 - Use structured tool arguments for multiline bodies. For CLI publication, write the exact text with the available file-edit tool and pass `--body-file` (or the provider equivalent). Verify repository, base, head, URL, and returned status after creation.

@@ -16,7 +16,7 @@ Keep user-facing product decisions and confirmation questions with the parent. T
 
 Default to one implementation agent at a time. Select one ticket from the approved breakdown whose blocking behavior has actually landed. Reuse a clear instruction to implement an existing ticket as its scope authorization; do not invent an additional split.
 
-Create or select the workspace and branch before dispatch. Give the implementer these inputs:
+Create a fresh isolated worktree and its task branch before dispatch; do not select the target/default branch worktree for implementation. Give the implementer these inputs:
 
 - Ticket and agreed spec links or accessible contents, acceptance criteria, relevant user decisions, and exclusions.
 - Absolute workspace path, branch, baseline SHA, applicable repository guidance, and existing dirty files to preserve.

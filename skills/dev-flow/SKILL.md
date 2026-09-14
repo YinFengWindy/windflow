@@ -90,7 +90,7 @@ Only work tickets included in the user's agreed delivery scope. A request to imp
 
 Read [references/delivery.md](references/delivery.md) when entering branch/PR creation, implementation, CI repair, review, or merge. It defines the evidence needed for each gate and how to resume after changes. Follow [delegation](references/delegation.md) to assign concrete implementation and required review to the host's native subagents.
 
-The parent owns user confirmations, tracker actions, branch/PR setup, integration, commits, pushes, CI, merge, and cleanup. Assign one approved unblocked ticket to an implementation subagent with an explicit workspace and scope; it implements, checks behavior, and returns evidence. Validate its actual diff before integrating. When review is required after CI, dispatch independent Standards and Spec reviewers. Send needed fixes back to the implementer. Do not run simultaneous writers in a shared worktree or turn subagent delegation into a new user-visible task.
+The parent owns user confirmations, tracker actions, branch/PR setup, integration, commits, pushes, CI, merge, and cleanup. **Before implementation starts, create a fresh Git worktree for the approved ticket and its feature branch, and make that worktree the explicit workspace for the implementation subagent. Never implement ticket changes directly on `main` (or the resolved base branch), including when the ticket was created from that branch.** Verify the active worktree and branch before assigning implementation and record both in the checkpoint. Assign one approved unblocked ticket to an implementation subagent with an explicit workspace and scope; it implements, checks behavior, and returns evidence. Validate its actual diff before integrating. When review is required after CI, dispatch independent Standards and Spec reviewers. Send needed fixes back to the implementer. Do not run simultaneous writers in a shared worktree or turn subagent delegation into a new user-visible task.
 
 Code review is conditional: skip the automatic `code-review` stage for small, bounded feature changes and UI-only changes. Classify the actual diff using the criteria in the delivery reference. This exemption does not skip relevant checks, CI, or user merge confirmation. An explicit request to review still runs the review.
 
@@ -99,7 +99,7 @@ The delivery cycle is:
 ```text
 requirement agreement -> spec draft -> similar-issue check -> publish spec
   -> proposed tickets -> USER CONFIRMS SPLIT
-  -> publish tickets -> branch -> implementation subagent -> parent integrates + PR
+  -> publish tickets -> create fresh worktree + branch -> implementation subagent -> parent integrates + PR
   -> local checks -> push -> CI -> classify review requirement
   -> small feature or UI-only? skip review : independent review subagents
   -> findings? fix -> checks -> push -> CI -> reclassify/review as needed
