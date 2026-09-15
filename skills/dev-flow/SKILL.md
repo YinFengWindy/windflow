@@ -45,7 +45,7 @@ Use the latest message together with the active task, existing artifacts, and ea
 | Explain, compare, assess an idea, or discuss a possible approach without requesting execution | Answer or discuss; use `grilling` if requested | Answer or shared understanding; no delivery mutations |
 | Refine a requirement, write a spec, or split tickets only | `grilling`, `to-spec`, or `to-tickets`, depending on what is missing | Requested artifact only; publish only when requested |
 | Deliver a new feature with unresolved behavior | `grilling` | Merged delivery after requirement agreement |
-| Deliver a clear feature or fix with agreed, verifiable acceptance criteria | Reuse the agreement; inspect the code, then spec/tickets as needed | Merged delivery; no ceremonial interview |
+| Deliver a clear feature or fix with agreed, verifiable acceptance criteria | Reuse the agreement and skip repeated clarification; inspect the code, then reuse an existing issue or create one before implementation | Merged delivery; no ceremonial interview |
 | Implement an existing issue or approved spec | Read it and its dependencies; fill only material gaps | Merged implementation of the requested scope |
 | Continue this workflow, repair its CI, or resolve its review findings | Reconcile the current branch/PR and resume the earliest unsatisfied gate | Preserve the existing stopping point |
 | Review an existing diff or PR only | `code-review` | Findings; no fixes or merge unless requested |
@@ -74,7 +74,7 @@ End with a concise proposed requirement and obtain agreement before delivery. An
 
 Read the bundled [to-spec file](skills/to-spec/SKILL.md) and synthesize the agreed requirement. Decide the testing approach using existing behavior boundaries; the owner has delegated this technical decision. Include observable acceptance criteria and distinguish known requirements from assumptions. Size the spec to the work without inventing scope to fill the template.
 
-For a new feature, draft the spec, complete the single similarity check below, then publish it as the parent issue on the resolved tracker. Reuse an existing approved spec/parent. For a small fix already fully specified in an issue, use that issue as the spec and executable ticket rather than creating duplicate containers. A planning-only request remains at its requested output boundary.
+For a new feature, draft the spec, complete the single similarity check below, then publish it as the parent issue on the resolved tracker. Reuse an existing approved spec/parent. A small change can use one issue as both the spec and executable ticket, without a separate parent or additional split. Reuse a suitable existing issue; if none exists, draft that single issue, complete the similarity check, and publish it after the applicable ticket approval, before implementation. Clear requirements remove repeated clarification, not the issue step. A planning-only request remains at its requested output boundary.
 
 ### Check for similar issues after the spec draft
 
