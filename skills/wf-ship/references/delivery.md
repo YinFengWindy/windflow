@@ -32,8 +32,17 @@ Re-read the head and gate status just before merging. A new head needs fresh CI,
 The merge confirmation also authorizes cleaning up after the PR once the provider reports `MERGED`:
 
 - **Remote branch:** delete it if its tip still equals the merged head. Do not delete a default, protected, or integration branch, or one that another open PR still uses.
-- **Task worktree:** if a worktree was created for this task, has the merged source branch checked out, has no uncommitted or untracked changes, and holds no commits beyond the merged head, remove it with `git worktree remove` (without `--force`). Leave the main checkout, the worktree you are running in, and worktrees the host app manages for its sessions; report those instead.
+- **Task worktree:** remove it only if it was created for this task, has the merged source branch checked out, has no uncommitted or untracked changes, holds no commits beyond the merged head, and no other session or running process is using it (check for processes whose working directory or command line contains its path). Leave the main checkout, the worktree you are running in, and worktrees the host app manages for its sessions; report those instead. Then remove it as described below.
 - **Local branch:** delete it once no worktree has it checked out and it holds no commits beyond what was merged. A squash merge can make an ancestry check fail even when nothing would be lost, so compare against the merged head.
+
+Removing a worktree can destroy data outside it. Worktrees often contain links into the main checkout, such as a `.venv` or `node_modules` junction or symlink. Git ignores those files, so `git status` does not show them. On Windows, `git worktree remove` and recursive deletes follow junctions and empty the target. Before removing:
+
+1. List every link inside the worktree that points outside it. On Windows: `Get-ChildItem -LiteralPath <worktree> -Recurse -Force -Attributes ReparsePoint`.
+2. Remove each link itself, never its contents: `cmd /c rmdir <link>` for a junction on Windows, `rm <link>` for a symlink elsewhere. List again and confirm none remain.
+3. Run `git worktree remove` without `--force`.
+4. Confirm the main checkout is intact: `git status` shows no deletions, and the directories the links pointed to still have content.
+
+If a link cannot be removed, the listing may be incomplete (for example, because of long paths), or the main checkout looks damaged afterwards, stop and report it rather than continuing.
 
 Leave other worktrees and uncommitted work alone. If cleanup fails, report "merged; cleanup pending" and do not merge again.
 
