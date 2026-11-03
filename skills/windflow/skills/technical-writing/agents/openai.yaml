@@ -1,4 +1,0 @@
-interface:
-  display_name: "Technical Writing"
-  short_description: "Explain technical decisions and verified outcomes"
-  default_prompt: "Use $technical-writing for the assigned Windflow stage and its current context."

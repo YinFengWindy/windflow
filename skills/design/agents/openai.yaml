@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design"
+  short_description: "Compare alternatives and converge a usable design"
+  default_prompt: "Use $design for the requested task and stop at the requested outcome."

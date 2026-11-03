@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship"
+  short_description: "Deliver implemented work through PR checks and merge"
+  default_prompt: "Use $ship for the requested task and stop at the requested outcome."

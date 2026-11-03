@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan"
+  short_description: "Draft specs and verifiable tickets from an agreed design"
+  default_prompt: "Use $plan for the requested task and stop at the requested outcome."

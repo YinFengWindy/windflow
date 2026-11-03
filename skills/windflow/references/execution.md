@@ -10,7 +10,7 @@ After requirement agreement, the single similar-issue check, and spec publicatio
 SPEC READY
 Source: <spec URL/path and revision or last known update>
 Outcome: <agreed behavior>
-Context and design: <current revision; investigation evidence; arena choice; architect contract>
+Context and design: <current revision; investigation evidence; selected proposal; design contract>
 Repository and baseline: <repository, branch, commit>
 Verification: <observable behavior and repo-mandated checks>
 Non-goals: <explicit scope exclusions>

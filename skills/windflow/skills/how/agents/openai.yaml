@@ -1,4 +1,0 @@
-interface:
-  display_name: "How"
-  short_description: "Trace behavior and ownership through source evidence"
-  default_prompt: "Use $how for the assigned Windflow stage and its current context."

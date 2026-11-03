@@ -1,4 +1,4 @@
-name: Check Bundle
+name: Check Skills
 on: [push, pull_request]
 permissions:
   contents: read
