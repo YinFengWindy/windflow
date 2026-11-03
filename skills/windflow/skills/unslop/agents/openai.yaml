@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unslop"
+  short_description: "Write clear prose while preserving meaning and evidence"
+  default_prompt: "Use $unslop for the assigned Windflow stage and its current context."

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Windflow"
+  short_description: "Investigate, design, and deliver with verified evidence"
+  default_prompt: "Use $windflow to investigate this request, agree on the behavior, compare and converge the design, and deliver verified changes with my split and merge confirmations."
+policy:
+  allow_implicit_invocation: true

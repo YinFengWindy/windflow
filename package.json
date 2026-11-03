@@ -1,14 +1,16 @@
 {
-  "name": "dev-flow",
-  "version": "0.2.0",
+  "name": "windflow",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "A self-contained development workflow skill installed from GitHub with the skills CLI.",
+  "description": "Investigate, clarify, compare designs, and deliver verified changes with explicit user checkpoints.",
   "license": "MIT",
-  "repository": "https://github.com/YinFengWindy/dev-flow",
+  "repository": "https://github.com/YinFengWindy/windflow",
   "scripts": {
     "check": "node scripts/check-bundle.mjs",
     "test": "node --test scripts/check-bundle.test.mjs"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

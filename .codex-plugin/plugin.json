@@ -1,24 +1,24 @@
 {
-  "name": "dev-flow",
-  "version": "0.2.0",
-  "description": "An npx-installable development workflow with delegated implementation, conditional review, human checkpoints, and bundled companion skills.",
+  "name": "windflow",
+  "version": "0.3.0",
+  "description": "Evidence-led development with investigation, parent-led decisions, independent proposals, and verified delivery.",
   "author": {
     "name": "YinFengWindy",
     "url": "https://github.com/YinFengWindy"
   },
-  "homepage": "https://github.com/YinFengWindy/dev-flow",
-  "repository": "https://github.com/YinFengWindy/dev-flow",
+  "homepage": "https://github.com/YinFengWindy/windflow",
+  "repository": "https://github.com/YinFengWindy/windflow",
   "license": "MIT",
   "skills": "./skills/",
   "interface": {
-    "displayName": "Dev Flow",
-    "shortDescription": "From requirements to checked and confirmed PR merges.",
-    "longDescription": "Routes intent, delegates implementation and required independent review to subagents, and handles CI, repairs, confirmed merge, and cleanup. Small feature and UI-only changes skip automatic review. Includes four companion skills, optional execution contracts, and evidence receipts in one installable directory. Project rules remain in AGENTS.md.",
+    "displayName": "Windflow",
+    "shortDescription": "Understand first. Design deliberately. Verify the result.",
+    "longDescription": "The parent owns investigation synthesis, requirement interviews, design convergence, and delivery. Independent agents investigate, propose alternatives, implement, and discover defects. Includes eight bundled capabilities, evidence-based finding verification, and requirement, ticket, and merge checkpoints.",
     "developerName": "YinFengWindy",
     "category": "Coding",
     "capabilities": [],
     "defaultPrompt": [
-      "Use dev-flow for this request. Wait for my confirmation of the ticket breakdown and final PR merge."
+      "Use $windflow to investigate this request, agree on the behavior, compare designs, and deliver verified changes. Wait for my ticket-breakdown and final merge confirmations."
     ]
   }
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arena"
+  short_description: "Compare independent solutions to one agreed problem"
+  default_prompt: "Use $arena for the assigned Windflow stage and its current context."

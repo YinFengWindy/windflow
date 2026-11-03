@@ -10,15 +10,22 @@ export function checkBundle(directory) {
   const required = [
     'SKILL.md', 'agents/openai.yaml', 'LICENSE', 'THIRD_PARTY_NOTICES.md',
     'upstream-lock.json', 'references/delivery.md', 'references/execution.md',
-    'references/delegation.md',
-    ...['grilling', 'to-spec', 'to-tickets', 'code-review'].flatMap(name => [
+    'references/delegation.md', 'references/planning.md',
+    'references/implementation.md', 'references/review.md',
+    ...['grilling', 'how', 'why', 'arena', 'architect', 'swarm', 'unslop', 'technical-writing'].flatMap(name => [
       `skills/${name}/SKILL.md`, `skills/${name}/agents/openai.yaml`,
     ]),
   ];
   for (const path of required) assert(existsSync(join(root, path)), `Missing bundled file: ${path}`);
   const lock = JSON.parse(readFileSync(join(root, 'upstream-lock.json'), 'utf8'));
-  assert.match(lock.commit, /^[a-f0-9]{40}$/);
-  assert.match(lock.workflowReference.commit, /^[a-f0-9]{40}$/);
+  assert.equal(lock.schemaVersion, 2, 'Unsupported upstream lock version');
+  assert.deepEqual(lock.sources.map(source => source.id).sort(), ['execution-context', 'matt', 'pstack']);
+  for (const source of lock.sources) {
+    assert.match(source.commit, /^[a-f0-9]{40}$/);
+    for (const file of source.files || []) assert.match(file.gitBlobSha, /^[a-f0-9]{40}$/);
+  }
+  const entrypoint = readFileSync(join(root, 'SKILL.md'), 'utf8');
+  assert.match(entrypoint, /^name: windflow$/m, 'Wrong installed skill identity');
 
   let links = 0;
   function visit(directory) {
@@ -51,6 +58,6 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     assert.equal(manifest.version, metadata.version, 'Package and plugin versions differ');
     assert.equal(manifest.name, metadata.name, 'Package and plugin names differ');
   }
-  const result = checkBundle(process.argv[2] || join(repository, 'skills/dev-flow'));
+  const result = checkBundle(process.argv[2] || join(repository, 'skills/windflow'));
   console.log(`Bundle valid: ${result.requiredFiles} required files, ${result.links} internal links (${result.root})`);
 }
