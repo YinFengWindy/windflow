@@ -2,149 +2,108 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-**给 Agent 一个需求，从讨论做到可合并的 PR。**
+**一组可以单独使用，也可以串起来完成开发的 Agent Skills。**
 
-Windflow 是一套面向编程 Agent 的开发流程 skill。它先读代码和相关历史，与你确认要做的行为，再比较方案、实现功能、验证结果。你负责需求、任务拆分和最终合并这几个决定，Agent 负责把中间的工作推进下去。
+想读懂代码，用 `investigate`；想比较设计，用 `design`；想审查 PR，用 `review`。每个 skill 都有自己的入口和所需文件。需要从讨论一直推进到可合并的 PR 时，再用 `windflow` 编排完整流程。
+
+```text
+使用 investigate，看看保存请求失败后会怎样重试，为什么这里需要幂等键。
+使用 review，审查这个 PR 是否会重复写入，先给出核验后的发现，不改代码。
+使用 write，把这份 README 改成第一次使用的人能照着操作的介绍。
+```
+
+## 安装你需要的 skills
+
+```sh
+npx skills@latest add YinFengWindy/windflow -g
+```
+
+安装时选择 skills 和你使用的 Agent。仅安装到当前项目时，去掉 `-g`。从本地 checkout 安装时，将 `YinFengWindy/windflow` 换成 `.`。
+
+只需要审查，可以单独安装：
+
+```sh
+npx skills@latest add YinFengWindy/windflow --skill review -g
+```
+
+九个阶段技能都可以独立安装。完整的 `windflow` 流程需要安装整套；只安装总入口不会自动带上其他 skills。它会检查当前阶段需要的技能，并明确报告缺失项。
+
+这些技能按 Agent Skills 格式分发。通过运行环境的技能入口选择，或直接说“使用 review”等名称。需要 Node.js/npm 运行安装命令；代码与远程交付操作还需要 Git 和对应平台的权限。独立候选、并行工作和独立审查使用运行环境提供的子 Agent。
+
+## 选哪个 skill
+
+| 你要做什么 | Skill | 会得到什么 |
+| --- | --- | --- |
+| 看懂当前代码和历史原因 | [investigate](skills/investigate/SKILL.md) | 行为链路、依据、约束和未知项。 |
+| 把功能想清楚 | [grill](skills/grill/SKILL.md) | 经过讨论和确认的需求。 |
+| 比较做法，再确定结构 | [design](skills/design/SKILL.md) | 候选方案比较，以及最终接口、类型和状态归属。 |
+| 写 Spec 或拆任务 | [plan](skills/plan/SKILL.md) | 可验收的 Spec、tickets 和依赖关系。 |
+| 实现明确的工作 | [implement](skills/implement/SKILL.md) | 代码改动和针对性检查结果。 |
+| 验收已有结果 | [verify](skills/verify/SKILL.md) | 每项标准是否满足，以及证据和缺口。 |
+| 找缺陷并核验建议 | [review](skills/review/SKILL.md) | 已确认缺陷、待核验问题和被排除的建议。 |
+| 把已完成的改动交付 | [ship](skills/ship/SKILL.md) | PR、CI、获批合并和清理结果。 |
+| 写清楚技术内容 | [write](skills/write/SKILL.md) | 适合读者任务的文档、说明或回复。 |
+| 完整推进一个开发任务 | [windflow](skills/windflow/SKILL.md) | 上述阶段衔接起来的开发流程。 |
+
+验收看“承诺的行为是否实现”；审查看“当前哪些路径还会失败”。实现者的检查结果可以供验收复用，审查意见则需要单独核验，不能因为有人提出就直接改代码。
+
+## 一个完整任务会怎样推进
 
 ```text
 使用 windflow，我想加离线编辑和自动同步。先看看现在的保存逻辑，再和我讨论冲突怎么处理。
 ```
 
-日常从“使用 windflow”开始。调查、访谈、方案比较和实现会在同一个任务里衔接起来。
+1. **调查，再讨论。** 调查者读取保存入口、重试逻辑和历史记录。主 Agent 消化事实后，问你两台设备离线修改同一文档时该怎样处理冲突。新事实问题继续交给调查者。
+2. **确认需求后设计。** `design` 先让独立候选者提出方案，再由一直参与需求讨论的主 Agent 比较和确定接口、数据结构及状态归属。
+3. **把方案拆成能验收的工作。** `plan` 整理 Spec、检查相似 issue，并列出每个 ticket 的行为、验收条件和依赖。你确认拆分后才发布和实现。
+4. **实现并验收。** 实现子 Agent 在隔离工作区修改代码。主 Agent 核对离线保存、恢复网络后的同步和已确认的冲突处理，复用有效的检查结果。
+5. **审查，再交付。** 需要审查时，由独立审查者寻找失败路径，再逐条核验发现和修复必要性。完成后呈现实际 PR、CI 和剩余限制，请你决定是否合并。
 
-## 安装，然后说你要做什么
-
-```sh
-npx skills@latest add YinFengWindy/windflow --skill windflow -g
-```
-
-它按 Agent Skills 格式分发，安装时选择你使用的 Agent。然后在项目里新建会话，通过工具的技能入口选择 Windflow，或直接说“使用 windflow”并描述任务。仅为当前项目安装时，去掉 `-g`；从本地 checkout 安装时，将 `YinFengWindy/windflow` 换成 `.`。
-
-需要 Node.js/npm 和 Git。创建 issue、PR 或运行远程 CI 时，还需要对应平台的访问权限。完整流程使用运行环境提供的子 Agent 能力；具体要求与能力不足时的处理方式见[代理协作规则](skills/windflow/references/delegation.md)。
-
-## 一句话进去，后面会发生什么
-
-以上面的“离线编辑和自动同步”为例：
-
-1. **先查项目。** 调查 Agent 找到保存入口、重试逻辑和相关设计记录，把事实、出处和未知项交给主 Agent。
-2. **带着上下文和你讨论。** 假设项目已经支持本地保存，主 Agent 会接着问：“两台设备离线修改同一份文档，冲突时怎么处理？”如果问题取决于现有代码，它会先补查，再继续讨论。
-3. **确认需求后比较方案。** 独立的 `arena` 子 Agent 基于同一份需求提出方案。主 Agent 比较取舍，再通过 `architect` 确定接口、数据结构和状态归属。
-4. **把方案拆成能验收的任务。** 你会看到每个 ticket 要完成什么、怎样算完成，以及依赖哪些工作。确认拆分后，才发布 tickets 并开始实现。
-5. **实现并验证。** 实现者在隔离工作区修改代码，检查离线保存、恢复网络后的同步，以及你确认的冲突行为。主 Agent 核对实际改动、验证结果和 CI。
-6. **把完成的 PR 交给你。** 需要审查的改动先完成独立找错和逐条核验。你看到改动说明、验收结果和剩余限制，再决定是否合并。
-
-你始终和同一个主 Agent 讨论。子 Agent 接手时会拿到已确认的需求、决策原因和可回查的源码依据；发现设计不成立，会带着证据交回主 Agent 处理。
+只讨论、只规划、本地修改或只审查的请求，停在指定结果。已有需求、设计和确认仍然有效时，会直接复用。
 
 ## Agent 怎样协作
 
-主 Agent 保留需求和当前决定，负责与你沟通、比较方案和确定设计。子 Agent 获得同一份已确认上下文，并把调查、实现或审查结果交回主 Agent。
+主 Agent 保留需求和当前决定，负责与你沟通、比较方案和确定设计。拆分 skill 不会让每个阶段都换一个负责人。
 
 ```mermaid
 flowchart TD
     U["你"] <--> M["主 Agent：需求、决策与当前定稿"]
-    M <-->|调查问题 / 事实与依据| H["how / why 调查 Agent"]
-    M -->|同一份已确认上下文| A["arena 候选 Agent"]
+    M <-->|调查问题 / 事实与依据| H["investigate 调查 Agent"]
+    M -->|同一份已确认上下文| A["design 独立候选"]
     A -->|方案、取舍与证据| M
-    M --> D["主 Agent 执行 architect"]
-    D -->|设计约定 + ticket + 隔离工作树| I["实现 Agent"]
+    M --> D["design：主 Agent 确定设计"]
+    D --> P["plan：Spec 与获批的 tickets"]
+    P -->|设计约定 + ticket + 隔离工作树| I["implement 实现 Agent"]
     I -->|产物、验证结果、设计疑点| M
-    M <-->|固定版本 / 发现与核验结果| R["独立审查环节"]
+    M --> V["verify：行为验收"]
+    M <-->|固定版本 / 发现与核验结果| R["review 独立审查"]
+    M --> S["ship：PR、CI 与获批合并"]
 ```
 
-## 为什么这样安排
+工作者拿到当前需求、决策原因、代码基线和可回查的依据。发现设计矛盾时，带着证据交回主 Agent；技术调整由主 Agent 处理，产品变化再与你讨论。详细约定在总入口的[协作规则](skills/windflow/references/coordination.md)里。
 
-### 先读懂项目，再问你问题
+## 审查意见也需要被检查
 
-“这个系统现在怎么保存数据”应该由 Agent 查代码回答。“冲突时保留哪份数据”才需要你决定。访谈中的新事实问题会继续交给调查者，直到需求确认。
+“未来可能有人这样调用，所以加一层兜底”不足以成为修改理由。审查要解释当前哪里能触发、怎样出错、已有保护为什么无效。核验还会检查建议的修复是否必要。
 
-### 在写代码前比较方案
+例如，内部函数已经只接收校验过的 ID，审查者建议加默认值。核验首先检查是否有真实调用路径绕过校验；即使有，也要判断修复入口是否比在内部伪造 ID 更合适。无法证实的建议会单独说明，不直接变成补丁。
 
-第一个能想到的方案不一定值得维护。Windflow 先让独立候选者提出完整方案，再由一直参与需求讨论的主 Agent 选择和整理设计。实现者发现设计矛盾时，需要说明哪个前提不成立，不能悄悄改变功能行为。
+这套方法完整地放在 [review](skills/review/SKILL.md) 内，单独安装即可使用。
 
-### 审查意见也需要被检查
+## 来源与融合
 
-“以后可能有人这样调用，所以再加一层兜底”不足以成为修改理由。审查要说明当前哪里能触发、怎样出错、已有保护为什么无效。核验者再检查这些判断，以及建议的修复是否必要。
+上游方法被融合进各自负责的 Windflow skill：
 
-例如，一个内部函数已经只接收入口校验过的 ID，审查者建议再补默认值。核验首先检查是否真有调用路径绕过校验；即使有，也要判断修复入口是否比在内部伪造一个 ID 更合适。无法证实的建议会单独说明，不直接变成补丁。
-
-## 常用开场白
-
-**加一个功能，还没想清细节：**
-
-```text
-使用 windflow，我想让用户保存一组搜索条件，下次直接使用。先调查现有搜索和设置功能，再和我讨论。
-```
-
-**修一个已经遇到的 Bug：**
-
-```text
-使用 windflow：连续点两次保存会产生重复记录。先复现，找到原因，再修复并验证。
-```
-
-**需求已经在 issue 里：**
-
-```text
-使用 windflow 实现 issue #42，沿用里面确认的需求和设计。
-```
-
-**只想检查代码：**
-
-```text
-使用 windflow 审查这个 PR，重点看看重试是否会重复写入。先给出核验后的发现，不改代码。
-```
-
-**先把想法讨论清楚：**
-
-```text
-使用 windflow，我想把设置同步到多台设备。这次只讨论需求，不创建 issue，也不实现。
-```
-
-已有的需求、设计和确认会被复用。局部修改从需要的阶段开始；你指定只讨论、只规划、本地修改或只审查时，流程就停在那里。
-
-## 你在什么时候作决定
-
-| 确认点 | 你会看到什么 |
+| Windflow | 上游方法 |
 | --- | --- |
-| 需求确认 | 要实现的行为、验收标准、范围和重要取舍。 |
-| 拆分确认 | Ticket 列表、每项交付内容、验收条件和依赖关系。 |
-| 合并确认 | 实际 PR、检查结果、审查结论或豁免原因，以及剩余限制。 |
+| `investigate` | pstack：`how`、`why` |
+| `grill` | Matt Pocock：`grilling` |
+| `design` | pstack：`arena`、`architect` |
+| `write` | pstack：`unslop`、`technical-writing` |
+| 代理协作规则 | pstack：`swarm` |
 
-Spec 草稿完成后会查一次相似 issue。发现可能重叠的工作时，会先请你决定复用、补充还是单独创建。
+`plan`、`implement`、`verify`、`review`、`ship` 按本项目的阶段职责编写。`plan` 保留了先前适配的 `to-spec`、`to-tickets` 中的规格和切片方法，流程和确认规则由 Windflow 定义。
 
-## 完整流程和能力分工
+参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。具体版本、适配范围和许可证见[来源声明](THIRD_PARTY_NOTICES.md)、[版本锁定](upstream-lock.json)及各 skill 随包携带的声明。
 
-```mermaid
-flowchart TD
-  H["子 Agent：how / why 调查"] --> G["主 Agent：grilling"]
-  G -->|新事实问题| H
-  G --> C["你确认需求"]
-  C --> A["独立 arena 候选方案"]
-  A --> D["主 Agent：architect 确定设计"]
-  D --> T["Spec · 查重 · 你确认拆分"]
-  T --> I["发布 tickets · 子 Agent 实现"]
-  I --> V["行为验收与 CI"]
-  V --> R["按需审查 · 核验发现与修复必要性"]
-  R --> M["你确认 PR 合并"]
-```
-
-| 能力 | 在流程中做什么 |
-| --- | --- |
-| [how](skills/windflow/skills/how/SKILL.md) / [why](skills/windflow/skills/why/SKILL.md) | 查现在如何运行，以及为什么这样设计。 |
-| [grilling](skills/windflow/skills/grilling/SKILL.md) | 和你逐轮讨论尚未决定的产品问题。 |
-| [arena](skills/windflow/skills/arena/SKILL.md) | 为同一个需求提出独立候选方案。 |
-| [architect](skills/windflow/skills/architect/SKILL.md) | 由主 Agent 把选定方案落实成设计。 |
-| [swarm](skills/windflow/skills/swarm/SKILL.md) | 并行分派可以独立完成的调查或实现工作。 |
-| [unslop](skills/windflow/skills/unslop/SKILL.md) / [technical-writing](skills/windflow/skills/technical-writing/SKILL.md) | 写清讨论、Spec、设计说明和 PR。 |
-
-具体规则见[技能入口](skills/windflow/SKILL.md)、[代理协作](skills/windflow/references/delegation.md)、[审查方法](skills/windflow/references/review.md)和[交付说明](skills/windflow/references/delivery.md)。
-
-## 来源
-
-Windflow 适配了以下 skills：
-
-- [Matt Pocock 的 skills](https://github.com/mattpocock/skills)：`grilling`。
-- [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)：`how`、`why`、`arena`、`architect`、`swarm`、`unslop`、`technical-writing`。
-
-具体版本与改动见[来源声明](skills/windflow/THIRD_PARTY_NOTICES.md)和[版本锁定](skills/windflow/upstream-lock.json)。
-
-MIT，见 [LICENSE](LICENSE) 和[第三方声明](THIRD_PARTY_NOTICES.md)。
+MIT，见 [LICENSE](LICENSE)。

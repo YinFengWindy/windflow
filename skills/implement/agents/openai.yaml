@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement"
+  short_description: "Implement agreed work and return focused validation"
+  default_prompt: "Use $implement for the requested task and stop at the requested outcome."

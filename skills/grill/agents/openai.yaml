@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill"
+  short_description: "Resolve product decisions through an informed interview"
+  default_prompt: "Use $grill for the requested task and stop at the requested outcome."

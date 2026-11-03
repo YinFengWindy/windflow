@@ -1,7 +1,7 @@
 {
   "name": "windflow",
-  "version": "0.3.0",
-  "description": "Evidence-led development with investigation, parent-led decisions, independent proposals, and verified delivery.",
+  "version": "0.4.0",
+  "description": "Independent Agent Skills for investigation, design, implementation, review, writing, and delivery.",
   "author": {
     "name": "YinFengWindy",
     "url": "https://github.com/YinFengWindy"
@@ -12,8 +12,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Windflow",
-    "shortDescription": "Understand first. Design deliberately. Verify the result.",
-    "longDescription": "The parent owns investigation synthesis, requirement interviews, design convergence, and delivery. Independent agents investigate, propose alternatives, implement, and discover defects. Includes eight bundled capabilities, evidence-based finding verification, and requirement, ticket, and merge checkpoints.",
+    "shortDescription": "Choose a skill or coordinate the complete workflow.",
+    "longDescription": "Nine independently installable skills cover investigation, interviews, design, planning, implementation, acceptance, review, delivery, and writing. The optional Windflow coordinator connects them through shared context, user decisions, and evidence.",
     "developerName": "YinFengWindy",
     "category": "Coding",
     "capabilities": [],
