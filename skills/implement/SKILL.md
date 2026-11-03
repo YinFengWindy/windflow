@@ -34,3 +34,5 @@ Run focused existing tests, affected-caller checks, type/source checks, and rele
 Return the baseline and design revision, changed files, acceptance evidence, commands/results, unrun checks, and unresolved deviations. The coordinator can use this receipt for acceptance without repeating successful checks.
 
 Stop at the requested implementation outcome. Commits, publication, review, or merge require the corresponding authorization; do not start a delivery workflow merely because code is complete.
+
+Parallel-work isolation draws on pstack [swarm](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/swarm/SKILL.md).

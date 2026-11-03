@@ -104,6 +104,6 @@ Upstream methods are integrated into skills with defined responsibilities:
 
 Plan, implement, verify, review, and ship follow this project's stage responsibilities. Plan retains specification and slicing ideas previously adapted from `to-spec` and `to-tickets`; Windflow defines the workflow and approval rules.
 
-See [Matt Pocock's skills](https://github.com/mattpocock/skills) and [Lauren Tan's pstack](https://github.com/cursor/plugins/tree/main/pstack). The [source notices](THIRD_PARTY_NOTICES.md), [version lock](upstream-lock.json), and notices inside each package record revisions, adaptations, and licenses.
+See [Matt Pocock's skills](https://github.com/mattpocock/skills) and [Lauren Tan's pstack](https://github.com/cursor/plugins/tree/main/pstack). Revisions and adaptations are recorded centrally in the [source notices](THIRD_PARTY_NOTICES.md) and [version lock](upstream-lock.json). Each skill retains its license file.
 
 MIT. See [LICENSE](LICENSE).
