@@ -7,7 +7,7 @@ metadata:
 
 # Verify
 
-Acceptance asks whether the promised behavior works. This skill evaluates an existing artifact; it does not implement fixes or conduct general defect discovery.
+Acceptance is not review, and a pass is not merge approval. The Windflow coordinator defines that split. This stage only judges whether an existing change meets the agreed acceptance criteria. It does not implement fixes or search for unrelated defects.
 
 Read the agreed acceptance criteria, current design, repository instructions, exact code or build version, and available results. If acceptance criteria are missing, derive a proposed check from the clear request or resolve a material ambiguity with the user. Do not invent new requirements.
 
@@ -25,4 +25,4 @@ Mark each criterion met, unmet, or unverified, with evidence, its version/enviro
 
 Give reproducible steps or concrete evidence for failures. Return implementation problems to the coordinating parent or user; do not fix them unless requested. Material product changes return to the user.
 
-Return an acceptance receipt with the artifact version, criteria, commands/results, gaps, and what would resolve them. Passing acceptance does not establish that no other defect exists and does not authorize merge.
+Return an acceptance receipt with the artifact version, criteria, commands and results, gaps, and what would resolve them.

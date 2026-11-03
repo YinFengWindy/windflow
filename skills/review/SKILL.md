@@ -7,7 +7,9 @@ metadata:
 
 # Review
 
-Read the [review method](references/method.md) before starting. This package contains the complete method and can review a diff or PR without installing Windflow.
+Review is not acceptance. The Windflow coordinator defines that split. Read the [review method](references/method.md) and apply it to the fixed change: find reachable defects, verify their mechanisms, and judge whether a proposed repair is necessary. An acceptance receipt is not this review.
+
+This package contains the complete method and can review a diff or PR without installing Windflow.
 
 Accept a comparison base or PR, the requested scope, available requirements and constraints, and relevant acceptance results. Resolve or state the comparison baseline before discovery. Missing a written spec does not prevent reviewing behavior that is clear from the request and code; report genuine limits.
 

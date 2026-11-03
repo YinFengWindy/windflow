@@ -1,4 +1,0 @@
-interface:
-  display_name: "Write"
-  short_description: "Write concrete technical prose without filler"
-  default_prompt: "Use $write for the requested task and stop at the requested outcome."

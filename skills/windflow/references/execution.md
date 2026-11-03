@@ -1,6 +1,6 @@
 # Execution Context
 
-Use these compact records to distinguish the final requirement from earlier drafts, resume partial work, and substantiate completion. They adapt ideas from [matt-skills-with-to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/tree/974c932292f0c7cca6481ea8029c17a7dd91b063). They do not add authorization, require a new task, or replace the existing confirmation gates.
+Use these compact records to distinguish the final requirement from earlier drafts, resume partial work, and substantiate completion. They adapt readiness markers and optional evidence-bearing handoffs. Sources and revisions: [THIRD_PARTY_NOTICES](../../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../../upstream-lock.json). They do not add authorization, require a new task, or replace the existing confirmation gates.
 
 ## Identify the final spec
 

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Investigate"
-  short_description: "Trace behavior, history, and constraints with evidence"
-  default_prompt: "Use $investigate for the requested task and stop at the requested outcome."

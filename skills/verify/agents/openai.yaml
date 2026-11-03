@@ -1,4 +1,0 @@
-interface:
-  display_name: "Verify"
-  short_description: "Check acceptance criteria against the actual result"
-  default_prompt: "Use $verify for the requested task and stop at the requested outcome."

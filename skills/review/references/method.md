@@ -1,6 +1,6 @@
 # Discover defects, then verify them
 
-Review asks what the current change breaks and under which reachable conditions. It is separate from acceptance of the requested behavior. The delivery caller owns review eligibility and merge gates. An explicit review request always runs.
+Review the current change for reachable failures. Acceptance of the requested behavior is a separate stage; the Windflow coordinator defines that split. The delivery caller owns review eligibility and merge gates. An explicit review request always runs.
 
 ## Pin the subject and assign coverage
 

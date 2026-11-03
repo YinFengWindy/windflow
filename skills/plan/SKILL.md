@@ -39,4 +39,4 @@ Use the tracker's existing labels and native sub-issue/blocking links where avai
 
 Return the spec, breakdown, dependencies, publication state, overlap decision, and recorded approvals. Stop there; a planning request does not authorize implementation or merge.
 
-Planning and slicing methods adapted from Matt Pocock's [to-spec](https://github.com/mattpocock/skills/blob/3cca18b368ae95cdbdebbff572ccafa662551015/skills/engineering/to-spec/SKILL.md) and [to-tickets](https://github.com/mattpocock/skills/blob/3cca18b368ae95cdbdebbff572ccafa662551015/skills/engineering/to-tickets/SKILL.md).
+Sources and revisions: [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../upstream-lock.json).

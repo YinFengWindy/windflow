@@ -1,6 +1,6 @@
 ---
 name: design
-description: "Compare independent approaches to an agreed problem, then converge the chosen approach into interfaces, types, ownership, and a verification plan."
+description: "Compare independent approaches to an agreed problem, then converge the chosen approach into interfaces, types, ownership, and a verification plan. Use when choosing a structure or settling interfaces before implementation."
 metadata:
   collection: windflow
 ---
@@ -41,4 +41,4 @@ Do not automatically start a second competition during convergence. Reuse an app
 
 Return the design revision, contracts, evidence links, accepted tradeoffs, and unresolved facts. If implementation later contradicts the contract, the owner evaluates the evidence, updates technical choices within scope, and sends material product changes back to the user.
 
-Integrates pstack [arena](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/arena/SKILL.md) and [architect](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/architect/SKILL.md).
+Sources and revisions: [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../upstream-lock.json).

@@ -2,6 +2,14 @@
 
 The parent maintains the user's intent, current decisions, and overall design. Delegation assigns bounded work; it does not transfer product authority or expand authorization.
 
+## Authority
+
+These three rules are the collection's source of truth. Stage skills keep a one-line pointer and their own actions.
+
+- **Acceptance is not review.** Acceptance checks whether the agreed behavior works. Review asks where the current behavior can still fail, and whether a proposed repair is necessary. Keep the two results separate. A hypothetical warning does not become defensive code.
+- **Silence and green CI are not approval.** The user confirms requirements, the ticket breakdown, and merging the finished PR. A quiet thread, a passing check, or a successful command does not grant those confirmations. An explicit authorization already on record stays in force for that same action.
+- **The parent owns product decisions.** The parent keeps context and design revisions, integration, Git and tracker actions, and questions to the user. Workers report contradictions with evidence. Technical adjustments inside the agreed scope stay with the parent. Material product changes return to the user.
+
 ## Roles
 
 | Role | Responsibility |
@@ -43,9 +51,15 @@ The parent routes factual follow-ups to investigators. It resolves technical det
 
 ## Isolate writes and integrate
 
-Default to one implementer per approved unblocked ticket. Parallelize only independent scopes with explicit integration ownership and separate writable worktrees. Read-only investigation can share a checkout if no writer is changing its baseline.
+Default to one implementer per approved unblocked ticket. An isolated worktree is the default for orchestrated and parallel implementation. Use the workspace the user names when they specify one. Implement on the target or default branch only when the user assigns that workspace.
 
-The implementer returns its workspace and baseline, changed files, acceptance evidence, commands/results, unrun checks, and design deviations. The parent checks the actual diff and evidence; a success statement alone is insufficient. Reuse successful checks unless a material change or gap requires more verification.
+Name the branch from the repository's convention or the name the user requests. Do not hardcode a `codex/` prefix.
+
+Parallelize only independent scopes, with explicit integration ownership and separate writable worktrees. Read-only investigation can share a checkout when no writer is changing its baseline.
+
+Preserve unrelated work. If the task depends on uncommitted user edits, account for them explicitly. Do not omit, stage, stash, reset, or publish them silently. Stage only this task's changes. Run the repository's pre-commit checks before committing.
+
+The implementer returns its workspace and baseline, changed files, acceptance evidence, commands and results, unrun checks, and design deviations. The parent checks the actual diff and evidence before Git or tracker mutations. A success statement alone is not enough. Reuse successful checks unless a material change or a gap requires more verification.
 
 Wait for writers and running mutation commands before staging, changing branches, or starting review on that checkout. Review runs on a pinned snapshot. Reproduction scripts belong in a separate scratch/worktree location, not in the implementation tree.
 
