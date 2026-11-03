@@ -13,9 +13,15 @@ Read repository instructions, current callers, the design revision, acceptance c
 
 ## Establish ownership
 
-In an orchestrated run, the implementation worker owns the assigned code and local checks. The parent owns user decisions, integration, Git/tracker mutations, CI, and delivery. Follow its explicit workspace and scope.
+In an orchestrated run, the worker owns the assigned code and local checks. Product decisions, integration, and Git or tracker mutations stay with the parent; the Windflow coordinator defines that split. Follow the workspace and scope the parent assigns.
 
-When called directly, the current agent owns the requested implementation. Respect local-only instructions. Create or reuse an isolated task worktree and branch for code changes unless the user specifies a different workspace. Preserve unrelated files and staging.
+When this skill is called directly, the current agent owns the requested implementation. Respect a local-only instruction and any workspace the user names.
+
+An isolated worktree is the default for orchestrated and parallel implementation. When the user specifies a workspace, use that one. Otherwise create or reuse an isolated worktree and branch. Implement on the target or default branch only when the user assigns that workspace.
+
+Name the branch from the repository's convention or the user's requested name. Do not hardcode a `codex/` prefix.
+
+Preserve unrelated files and staging. If the change depends on uncommitted user edits, account for them explicitly. Do not omit, stage, stash, reset, or publish them silently. Stage only this task's changes. Run the repository's pre-commit checks before committing. Do not weaken a test or required check to make a gate pass.
 
 For parallel work, divide independent behavior with explicit ownership and separate writable worktrees. Someone must own integration and cross-slice checks. Do not run simultaneous writers in one checkout.
 
@@ -35,4 +41,4 @@ Return the baseline and design revision, changed files, acceptance evidence, com
 
 Stop at the requested implementation outcome. Commits, publication, review, or merge require the corresponding authorization; do not start a delivery workflow merely because code is complete.
 
-Parallel-work isolation draws on pstack [swarm](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/swarm/SKILL.md).
+Sources and revisions: [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../upstream-lock.json).

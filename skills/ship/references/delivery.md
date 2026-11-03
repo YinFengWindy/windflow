@@ -1,24 +1,26 @@
 # Delivery Gates
 
-Read this reference for the requested PR, checks, merge, or cleanup operation. Apply the user's requested stopping point throughout; a review-only or CI-only entry does not inherit permission to merge.
+Read this reference when publishing, checking, merging, or cleaning up a change that already exists. Apply the user's requested stopping point throughout; a review-only or CI-only entry does not inherit permission to merge.
+
+Acceptance is not review, and silence or green CI is not approval. The Windflow coordinator states those rules. This file covers PR, CI, the review gate, merge, and cleanup. Branch naming, worktree setup, and pre-commit checks belong to implementation.
 
 ## Branch and PR
 
-- Fetch the relevant base and inspect the current worktree. Reuse the task's existing branch/PR only when it already has an isolated worktree. Otherwise create `codex/<ticket-or-feature-slug>` from the resolved target branch and create a fresh Git worktree for it before implementation, unless the user or repo specifies another convention. Never implement directly in the target/default branch worktree.
-- Preserve existing work. The implementation worktree must be isolated even when the base worktree is clean. If the requested work depends on uncommitted user edits, account for them explicitly; do not silently omit, stage, stash, reset, or publish them. Stage only the task's changes.
-- Default to one independently landable ticket per PR. Use an integration branch for tickets that genuinely cannot land green separately. Track its final integration PR and do not equate intermediate branch merges with delivery to the intended target.
-- Run repo-mandated pre-commit checks before committing. Push a meaningful commit and create or update a draft PR with the concrete behavior change, verification, and spec/ticket links. Use closing references only for tickets the PR fully completes; a partial ticket PR must not close the parent feature.
+Deliver the branch and commits implementation already produced. Do not create an implementation worktree or choose a branch name from this stage.
+
+- Fetch the relevant base and inspect the current branch, worktree, and any existing PR. Continue that task branch and PR. If the change has no branch yet, is still on the target or default branch, or still has uncommitted task changes, stop and return it to implementation. Implementation owns the branch, the commit, and the repository's pre-commit checks.
+- Keep one independently landable ticket per PR. Use an integration branch only when tickets genuinely cannot land green separately. Track its final integration PR. An intermediate branch merge is not delivery to the intended target.
+- Push the existing commits and create or update a draft PR with the behavior change, verification, and spec or ticket links. Use closing references only for tickets this PR fully completes. A partial ticket PR must not close the parent feature.
 - Use structured tool arguments for multiline bodies. For CLI publication, write the exact text with the available file-edit tool and pass `--body-file` (or the provider equivalent). Verify repository, base, head, URL, and returned status after creation.
 
-## Implementation and CI
+## CI
 
-- When working with implementation agents, the implementation subagent makes scoped code changes and runs relevant local checks; the parent verifies its diff and evidence, then handles commits, PRs, and CI. Return concrete repairs to the implementer and wait for all writers to finish before Git mutations or review.
-- Implement the ticket against its acceptance criteria and repo conventions. Run checks required by the repo and meaningful tests for the affected behavior. Do not weaken a test or required check to make a gate green.
-- Inspect workflows, scripts, and remote branch/ruleset requirements to determine expected CI. Required policy checks and the repo's documented delivery gates both matter, even if branch protection is absent.
-- Record the pushed PR head SHA. Verify CI belongs to that head, or to the provider's corresponding PR merge candidate; a successful run on the base branch or previous head does not count.
-- Account for expected checks explicitly. An empty check list, missing expected job, pending state, cancelled run, or failed run is not success. Accept skipped/not-applicable results only when the workflow's applicability rules justify them for this change. An optional neutral result cannot substitute for an expected validation job.
-- If draft status prevents required CI from running, mark the implemented PR ready once local checks pass, while keeping merge gated on CI and any required review. Read failures, fix their cause, commit, and push before collecting fresh evidence.
-- Use bounded polling with backoff and updates. Do not blindly rerun a deterministic failure. A rerun is appropriate for demonstrated transient infrastructure failure; repeated identical external failures require diagnosis or a concrete blocker report.
+- Return confirmed repairs to the implementer and wait until writers finish before the next Git mutation or review on that checkout.
+- Inspect workflows, scripts, and remote branch or ruleset requirements to determine expected CI. Required policy checks and the repo's documented delivery gates both matter, even if branch protection is absent.
+- Record the pushed PR head SHA. Verify CI belongs to that head, or to the provider's corresponding PR merge candidate. A successful run on the base branch or a previous head does not count.
+- Account for expected checks explicitly. An empty check list, a missing expected job, a pending or cancelled run, or a failed run is not success. Accept skipped or not-applicable results only when the workflow's applicability rules justify them for this change. An optional neutral result cannot substitute for an expected validation job.
+- If draft status prevents required CI from running, mark the PR ready once implementation's checks have passed. Merge stays gated on CI and any required review. Read failures and return the repair to implementation, which runs the repository's pre-commit checks before the next commit. After the new head is pushed, collect fresh CI.
+- Use bounded polling with backoff and updates. Do not blindly rerun a deterministic failure. A rerun is appropriate for a demonstrated transient infrastructure failure. Repeated identical external failures need a diagnosis or a concrete blocker report.
 
 ## Decide whether review is needed
 
@@ -33,7 +35,7 @@ After inspecting the actual PR diff, skip the automatic review stage when either
 
 A mixed change may still qualify as a small feature when its entire behavior is bounded and none of the substantive cases above applies. Judge impact and behavior, not file count. Decide from repository evidence without adding a routine user confirmation. If the diff cannot be classified confidently, run review and briefly explain why.
 
-Record `skipped: small feature` or `skipped: UI-only`, the short reason, and the head/base evaluated. Do not invoke review subagents for an exempt change or label a skipped review as passed. An exempt change needs no review subagent capability; implementation still follows the delegation policy with its disclosed local fallback. Reassess eligibility after each new commit or changed base so later backend or high-impact changes do not inherit an obsolete exemption.
+Record `skipped: small feature` or `skipped: UI-only`, the short reason, and the head and base evaluated. Do not invoke review subagents for an exempt change or label a skipped review as passed. Reassess eligibility after each new commit or changed base so a later high-impact change does not inherit an obsolete exemption.
 
 Review exemption changes only this agent review stage. Run the repository's applicable checks and CI, verify the affected behavior, and keep the user merge checkpoint. For UI changes, validate the rendered result and relevant interactions using the repository's existing visual/accessibility practices. Required provider approvals and protections still apply.
 
@@ -43,20 +45,20 @@ Review exemption changes only this agent review stage. Run the repository's appl
 2. Assign independent defect discovery on the fixed snapshot. Partition by affected behavior when needed; cover cross-slice interactions. Standards and requirements remain checks, not fixed reviewer identities.
 3. Have findings independently verified for current reachability, the failure mechanism, existing protections, and the necessity of the proposed repair. Model agreement is not evidence. Keep confirmed defects, unresolved factual questions, rejected findings, and future suggestions distinct.
 4. Assign confirmed repairs to the implementer. Do not add speculative guards, retries, fallbacks, compatibility layers, or abstractions merely to satisfy a review suggestion.
-5. After a repair, run affected checks, push, obtain CI for the new head, and reassess review eligibility. Revalidate previous defects and review newly changed behavior. A later exemption does not erase a confirmed unresolved defect.
+5. After the repair is implemented, push the new head, obtain CI for it, and reassess review eligibility. Revalidate previous defects and review newly changed behavior. A later exemption does not erase a confirmed unresolved defect.
 
 Required independent discovery remains pending if the necessary agents cannot run. Agent review does not replace required human or Code Owner approval. Never bypass provider policy or approve on the user's behalf.
 
 ## Merge
 
-Complete all technical work before asking for merge approval. Once the following facts hold, present the concrete PR URL, source and target branches, head SHA, a concise change summary, CI results, review results or its explicit exemption, and any material consequences. Ask the user to confirm merging this PR and wait for their answer:
+Ticket or requirement approval does not confirm this merge. Once the following facts hold, present the concrete PR URL, source and target branches, head SHA, a concise change summary, CI results, review results or the recorded exemption, and any material consequences. Ask the user to confirm merging this PR and wait:
 
 - The agreed scope for this PR is implemented and verified, its blockers are satisfied, and the PR targets the intended repository/branch.
 - The worktree has no uncommitted task fixes, and the remote head is the exact head whose CI passed and whose review result or exemption was recorded.
 - Expected CI checks for the current candidate passed. Either required discovery and finding verification completed or the current diff qualifies for a recorded small-feature/UI-only exemption. No known blocking defect or acceptance gap remains unresolved.
 - Required provider approvals and review-thread policies are satisfied, the PR is ready and mergeable, and branch/ruleset requirements are met.
 
-Requirement or ticket approval is not merge approval. Do not merge, enqueue, or enable auto-merge while the confirmation is pending. An explicit confirmation to merge the presented PR/head satisfies this checkpoint; do not ask again for that same unchanged result. For multiple PRs, obtain approval for each concrete PR, or an explicit batch approval identifying every included PR/head.
+Do not merge, enqueue, or enable auto-merge while the confirmation is pending. An explicit confirmation to merge the presented PR/head satisfies this checkpoint; do not ask again for that same unchanged result. For multiple PRs, obtain approval for each concrete PR, or an explicit batch approval identifying every included PR/head.
 
 After confirmation, re-read head/base and provider gate status immediately before merging. If the head changed, restart CI, reassess review eligibility, complete any required review, and obtain new confirmation for the changed result. If the base advanced, refresh the comparison and integration evidence; update the branch when required and recheck/reassess any resulting changes. A changed integration result or material consequence requires renewed confirmation. Do not resolve unknown or conflicting gate state optimistically.
 

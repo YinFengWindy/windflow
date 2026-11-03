@@ -3,7 +3,6 @@ name: windflow
 description: "Coordinate investigation, requirements, design, implementation, acceptance, review, and delivery using the Windflow collection. Use for a complete development workflow or resuming one."
 metadata:
   collection: windflow
-  requires: investigate, grill, design, plan, implement, verify, review, ship, write
 ---
 
 # Windflow
@@ -26,41 +25,39 @@ The stage skills are separate installable packages. This file does not contain t
 | PR, CI, merge, cleanup | ship | Parent |
 | Clear replies and documents | write | Every author |
 
-Locate an entry through the host's installed-skill catalog or the collection's sibling directories. Check that its frontmatter identifies collection `windflow` before using a same-named skill from another source. Read the actual SKILL.md, and pass its path/instructions to assigned workers. A name is not a tool invocation.
+Locate an entry through the host's installed-skill catalog or the collection's sibling directories. Check that its frontmatter identifies collection `windflow` before using a same-named skill from another source. Read the actual SKILL.md, and pass its path and instructions to assigned workers. A name is not a tool invocation.
 
-If a required stage is not installed, report the missing skill and stop that dependent stage; continue independent preparation. Do not substitute an unrelated global implementation or pretend the method ran. A subset installation need not contain skills for stages outside the user's request.
+Hosts discover skills by name and description. This file does not declare installer dependencies. If a required stage is not installed, report the missing skill and stop that dependent stage; continue independent preparation. Do not substitute an unrelated global implementation or pretend the method ran. A subset installation need not contain skills for stages outside the user's request.
 
 ## Route intent
 
-Use the active task and prior decisions. State the entry and stopping point briefly. Discussion, planning, local edits, review-only requests, and standalone delivery stop at their requested result.
+State the entry and the stopping point. Read [coordination](references/coordination.md) before delegation and [execution context](references/execution.md) when handing off or resuming. Use write for replies and documents. It is not an extra stage or approval.
 
-For a new feature:
-1. Dispatch bounded investigate work before the first interview.
-2. The parent checks the evidence and runs grill. New factual questions return to investigators; independent interview questions can proceed. Repeat until the user agrees on behavior, acceptance criteria, scope, and material tradeoffs.
-3. Run design. Candidate agents compare approaches to the same confirmed problem, then the parent develops the selected approach into interfaces, types, ownership, and constraints. Do not run a second automatic competition during convergence.
-4. Run plan to draft the spec, perform its single overlap check, and propose tickets. Publish and implement the ticket set only after the user approves the breakdown.
-5. Assign implement to an approved unblocked ticket in an isolated workspace. Use verify to assess its actual behavior and evidence. Reuse successful relevant checks.
-6. Run ship for the authorized delivery outcome. It determines required CI and review gates; when review is needed, dispatch review on the fixed change and verify findings before assigning repairs.
-7. Present the actual PR and evidence for merge approval. Verify merge and eligible source-branch cleanup.
+| Request | Route | Stop |
+| --- | --- | --- |
+| Unsettled behavior | investigate, then grill, then design, then plan | The user has agreed the behavior, and has approved the ticket breakdown, before publication or implementation |
+| Approved ticket | implement in the assigned workspace, then verify | The ticket's behavior is accepted, or an earlier stopping point the user set |
+| Known defect | investigate the mechanism, then implement inside that scope | The requested fix, without opening a new feature split |
+| Mechanical edit with the behavior already specified | implement | The edit itself |
+| Review only | review the fixed change | Findings and repair directions |
+| Deliver work that already exists | ship | The requested gate: PR, CI, review evidence, or an authorized merge |
 
-Read [coordination](references/coordination.md) before delegation and [execution context](references/execution.md) when handing off or resuming. Apply write throughout replies and documents. Its name in the table does not add another stage or approval.
+When ship requires review, dispatch it on the fixed change and verify findings before repairs. Merge waits until the user confirms the presented PR. After that confirmation, verify the merge and any eligible source-branch cleanup.
 
-Reuse explicit requirement agreement, an approved applicable design, selected tickets, and unchanged approvals. Do not invent an interview or competing designs for a fully specified mechanical edit. For a clear defect, investigate its actual mechanism and preserve scope. A selected existing ticket does not require a new split.
+Reuse an explicit requirement agreement, an approved design, a selected ticket, and an unchanged approval while they still apply. A selected existing ticket does not need a new breakdown. A fully specified mechanical edit does not need an interview or a design competition. Discussion, planning, local edits, review-only work, and standalone delivery stop at the requested result.
 
 ## Preserve decisions and authorization
 
-The owner confirms requirements, the exact ticket breakdown, and the finished PR before merge. The plan skill also returns plausible issue overlap to the user. Existing explicit authorization and narrower stopping points remain authoritative; do not ask again for an action already authorized. Silence and green checks are not approval.
+Acceptance versus review, silence or green CI versus approval, and parent ownership of product decisions are defined in [coordination](references/coordination.md). Apply that reference at every stage.
 
-The parent owns product decisions, context/design revisions, integration, Git/tracker actions, and user-facing questions. Workers report contradictions with evidence. Technical adjustments within scope remain the parent's responsibility; material product changes return to the user.
+The owner confirms requirements, the exact ticket breakdown, and the finished PR before merge. The plan skill also returns plausible issue overlap to the user. An authorization the user already gave, and any narrower stopping point, stays in force.
 
-Acceptance answers whether agreed behavior works. Review asks where current behavior can fail and whether a proposed repair is necessary. Do not treat one as the other or turn a hypothetical warning into defensive code.
-
-Use focused local checks for affected behavior and callers, retain required external CI, and avoid repeating passed checks without a relevant change or evidence gap. Keep merged, merge-ready, partial, and unverified outcomes distinct.
+Use focused local checks for affected behavior and callers. Keep required external CI. Repeat a passed check only when the code changed or the evidence has a gap. Keep merged, merge-ready, partial, and unverified outcomes distinct.
 
 ## Resume
 
-Read current repository and tracker state, the latest context/design revision, completed evidence, approvals, and the next unsatisfied gate. A changed head needs current CI and review eligibility assessment; preserve results that still apply.
+Read current repository and tracker state, the latest context and design revision, completed evidence, approvals, and the next unsatisfied gate. A changed head needs current CI and a fresh review-eligibility check. Preserve results that still apply.
 
-This skill operates in the current task. It does not create a scheduler, new user-visible chats, or external messages without the corresponding user request.
+This skill operates in the current task. It does not create a scheduler, new user-visible chats, or external messages unless the user asked for that action.
 
-Coordination draws on pstack [swarm](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/swarm/SKILL.md); handoffs draw on [matt-skills-with-to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/tree/974c932292f0c7cca6481ea8029c17a7dd91b063).
+Sources and revisions: [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../upstream-lock.json).

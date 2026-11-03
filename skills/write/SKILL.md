@@ -34,4 +34,4 @@ For PRs and delivery reports, explain the concrete problem, resulting behavior, 
 
 Write and edit as one pass where possible, then check factual claims, links, and examples against their sources. Return or update the requested artifact. Writing does not authorize publication, add approvals, or expand the underlying work.
 
-Integrates pstack [unslop](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/unslop/SKILL.md) and [technical-writing](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/technical-writing/SKILL.md).
+Sources and revisions: [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../upstream-lock.json).

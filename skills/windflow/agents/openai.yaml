@@ -1,6 +1,0 @@
-interface:
-  display_name: "Windflow"
-  short_description: "Coordinate the Windflow skills from idea to delivery"
-  default_prompt: "Use $windflow to investigate this request, agree on its behavior, design and implement it, and deliver verified changes with my required confirmations."
-policy:
-  allow_implicit_invocation: true

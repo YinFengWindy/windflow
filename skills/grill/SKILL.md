@@ -31,4 +31,4 @@ Present the intended behavior, observable acceptance criteria, scope exclusions,
 
 Return the confirmed requirement and its reasons, referenced evidence, unresolved questions, and next requested stage. Keep technical testing choices with the agent unless they change a material product decision.
 
-Adapted from Matt Pocock's [grilling](https://github.com/mattpocock/skills/blob/3cca18b368ae95cdbdebbff572ccafa662551015/skills/productivity/grilling/SKILL.md).
+Sources and revisions: [THIRD_PARTY_NOTICES](../../THIRD_PARTY_NOTICES.md), [upstream-lock.json](../../upstream-lock.json).

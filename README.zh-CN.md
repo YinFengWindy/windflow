@@ -18,14 +18,17 @@
 npx skills@latest add YinFengWindy/windflow -g
 ```
 
-安装时选择 skills 和你使用的 Agent。仅安装到当前项目时，去掉 `-g`。
+安装时选择 skills 和你使用的 Agent。只装到当前项目时，去掉 `-g`。从本地目录安装时，把 `YinFengWindy/windflow` 换成 `.`。
 
-只需要审查，可以单独安装：
+只需要审查时，可以单独安装：
 
 ```sh
 npx skills@latest add YinFengWindy/windflow --skill review -g
 ```
-通过运行环境的技能入口选择，或直接说“使用 review”等名称。
+
+九个阶段 skill 都可以单独安装。只安装 `windflow` 入口不会带上其他 skill。宿主靠名称和描述发现 skill。当前阶段缺哪些 skill，由协调者的正文检查并报告，不靠安装器的元数据。
+
+通过宿主的技能入口选择，或直接说“使用 review”。安装需要 Node.js 和 npm。改代码和远程交付还需要 Git，以及仓库平台的访问权限。独立候选、并行实现和独立审查使用宿主的子 Agent。
 
 ## 选哪个 skill
 
@@ -42,6 +45,8 @@ npx skills@latest add YinFengWindy/windflow --skill review -g
 | 写清楚技术内容 | [write](skills/write/SKILL.md) | 适合读者任务的文档、说明或回复。 |
 | 完整推进一个开发任务 | [windflow](skills/windflow/SKILL.md) | 上述阶段衔接起来的开发流程。 |
 
+验收、审查和合并批准是三道不同的门，只在 [windflow 协调者](skills/windflow/SKILL.md) 里完整说明。
+
 ## 一个完整任务会怎样推进
 
 ```text
@@ -54,10 +59,11 @@ npx skills@latest add YinFengWindy/windflow --skill review -g
 4. **实现并验收。** 实现子 Agent 在隔离工作区修改代码。主 Agent 核对离线保存、恢复网络后的同步和已确认的冲突处理，复用有效的检查结果。
 5. **审查，再交付。** 需要审查时，由独立审查者寻找失败路径，再逐条核验发现和修复必要性。完成后呈现实际 PR、CI 和剩余限制，请你决定是否合并。
 
+只讨论、只规划、只做本地修改或只审查时，停在该结果。仍然适用的需求、设计和已有批准会继续沿用。
 
 ## Agent 怎样协作
 
-主 Agent 保留需求和当前决定，负责与你沟通、比较方案和确定设计。拆分 skill 不会让每个阶段都换一个负责人。
+主 Agent 保留当前约定，并和你沟通。工作者交回证据。交接规则在协调者的[协作说明](skills/windflow/references/coordination.md)。
 
 ```mermaid
 flowchart TD
@@ -74,14 +80,9 @@ flowchart TD
     M --> S["ship：PR、CI 与获批合并"]
 ```
 
-工作者拿到当前需求、决策原因、代码基线和可回查的依据。发现设计矛盾时，带着证据交回主 Agent；技术调整由主 Agent 处理，产品变化再与你讨论。详细约定在总入口的[协作规则](skills/windflow/references/coordination.md)里。
+## 审查建议也要核对
 
-## 审查意见也需要被检查
-
-“未来可能有人这样调用，所以加一层兜底”不足以成为修改理由。审查要解释当前哪里能触发、怎样出错、已有保护为什么无效。核验还会检查建议的修复是否必要。
-
-例如，内部函数已经只接收校验过的 ID，审查者建议加默认值。核验首先检查是否有真实调用路径绕过校验；即使有，也要判断修复入口是否比在内部伪造 ID 更合适。无法证实的建议会单独说明，不直接变成补丁。
-
+“以后可能会有人这样调用，所以加一层兜底”不能单独成为修改理由。一条发现要说明当前触发条件、失败机制，以及现有保护为什么挡不住。完整方法在 [review](skills/review/SKILL.md)，可以单独安装。
 
 ## 来源
 
@@ -91,7 +92,8 @@ flowchart TD
 | `grill` | Matt Pocock：`grilling` |
 | `design` | pstack：`arena`、`architect` |
 | `write` | pstack：`unslop`、`technical-writing` |
+| Agent 协作 | pstack：`swarm` |
 
-参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。
+参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。修订、适配和第三方版权声明见 [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md) 与 [版本锁定](upstream-lock.json)。
 
-MIT，见 [LICENSE](LICENSE)。
+MIT。仓库许可证是 [LICENSE](LICENSE)。
