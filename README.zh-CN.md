@@ -4,7 +4,7 @@
 
 **一组可以单独使用，也可以串起来完成开发的 Agent Skills。**
 
-想读懂代码，用 `investigate`；想比较设计，用 `design`；想审查 PR，用 `review`。每个 skill 都有自己的入口和所需文件。需要从讨论一直推进到可合并的 PR 时，再用 `windflow` 编排完整流程。
+想读懂代码，用 `investigate`；想比较设计，用 `design`；想审查 PR，用 `review`。需要从讨论一直推进到可合并的 PR 时，再用 `windflow` 编排完整流程。
 
 ```text
 使用 investigate，看看保存请求失败后会怎样重试，为什么这里需要幂等键。
@@ -18,17 +18,14 @@
 npx skills@latest add YinFengWindy/windflow -g
 ```
 
-安装时选择 skills 和你使用的 Agent。仅安装到当前项目时，去掉 `-g`。从本地 checkout 安装时，将 `YinFengWindy/windflow` 换成 `.`。
+安装时选择 skills 和你使用的 Agent。仅安装到当前项目时，去掉 `-g`。
 
 只需要审查，可以单独安装：
 
 ```sh
 npx skills@latest add YinFengWindy/windflow --skill review -g
 ```
-
-九个阶段技能都可以独立安装。完整的 `windflow` 流程需要安装整套；只安装总入口不会自动带上其他 skills。它会检查当前阶段需要的技能，并明确报告缺失项。
-
-这些技能按 Agent Skills 格式分发。通过运行环境的技能入口选择，或直接说“使用 review”等名称。需要 Node.js/npm 运行安装命令；代码与远程交付操作还需要 Git 和对应平台的权限。独立候选、并行工作和独立审查使用运行环境提供的子 Agent。
+通过运行环境的技能入口选择，或直接说“使用 review”等名称。
 
 ## 选哪个 skill
 
@@ -45,8 +42,6 @@ npx skills@latest add YinFengWindy/windflow --skill review -g
 | 写清楚技术内容 | [write](skills/write/SKILL.md) | 适合读者任务的文档、说明或回复。 |
 | 完整推进一个开发任务 | [windflow](skills/windflow/SKILL.md) | 上述阶段衔接起来的开发流程。 |
 
-验收看“承诺的行为是否实现”；审查看“当前哪些路径还会失败”。实现者的检查结果可以供验收复用，审查意见则需要单独核验，不能因为有人提出就直接改代码。
-
 ## 一个完整任务会怎样推进
 
 ```text
@@ -59,7 +54,6 @@ npx skills@latest add YinFengWindy/windflow --skill review -g
 4. **实现并验收。** 实现子 Agent 在隔离工作区修改代码。主 Agent 核对离线保存、恢复网络后的同步和已确认的冲突处理，复用有效的检查结果。
 5. **审查，再交付。** 需要审查时，由独立审查者寻找失败路径，再逐条核验发现和修复必要性。完成后呈现实际 PR、CI 和剩余限制，请你决定是否合并。
 
-只讨论、只规划、本地修改或只审查的请求，停在指定结果。已有需求、设计和确认仍然有效时，会直接复用。
 
 ## Agent 怎样协作
 
@@ -88,11 +82,8 @@ flowchart TD
 
 例如，内部函数已经只接收校验过的 ID，审查者建议加默认值。核验首先检查是否有真实调用路径绕过校验；即使有，也要判断修复入口是否比在内部伪造 ID 更合适。无法证实的建议会单独说明，不直接变成补丁。
 
-这套方法完整地放在 [review](skills/review/SKILL.md) 内，单独安装即可使用。
 
-## 来源与融合
-
-上游方法被融合进各自负责的 Windflow skill：
+## 来源
 
 | Windflow | 上游方法 |
 | --- | --- |
@@ -100,10 +91,7 @@ flowchart TD
 | `grill` | Matt Pocock：`grilling` |
 | `design` | pstack：`arena`、`architect` |
 | `write` | pstack：`unslop`、`technical-writing` |
-| 代理协作规则 | pstack：`swarm` |
 
-`plan`、`implement`、`verify`、`review`、`ship` 按本项目的阶段职责编写。`plan` 保留了先前适配的 `to-spec`、`to-tickets` 中的规格和切片方法，流程和确认规则由 Windflow 定义。
-
-参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。具体版本与适配范围统一记录在[来源声明](THIRD_PARTY_NOTICES.md)和[版本锁定](upstream-lock.json)中；各 skill 保留自己的许可证文件。
+参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。
 
 MIT，见 [LICENSE](LICENSE)。
