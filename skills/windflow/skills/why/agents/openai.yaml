@@ -1,0 +1,4 @@
+interface:
+  display_name: "Why"
+  short_description: "Trace design rationale and historical constraints"
+  default_prompt: "Use $why for the assigned Windflow stage and its current context."
