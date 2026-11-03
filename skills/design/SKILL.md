@@ -40,3 +40,5 @@ Do not automatically start a second competition during convergence. Reuse an app
 ## Handoff
 
 Return the design revision, contracts, evidence links, accepted tradeoffs, and unresolved facts. If implementation later contradicts the contract, the owner evaluates the evidence, updates technical choices within scope, and sends material product changes back to the user.
+
+Integrates pstack [arena](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/arena/SKILL.md) and [architect](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/architect/SKILL.md).

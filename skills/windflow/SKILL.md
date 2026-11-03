@@ -62,3 +62,5 @@ Use focused local checks for affected behavior and callers, retain required exte
 Read current repository and tracker state, the latest context/design revision, completed evidence, approvals, and the next unsatisfied gate. A changed head needs current CI and review eligibility assessment; preserve results that still apply.
 
 This skill operates in the current task. It does not create a scheduler, new user-visible chats, or external messages without the corresponding user request.
+
+Coordination draws on pstack [swarm](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/swarm/SKILL.md); handoffs draw on [matt-skills-with-to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/tree/974c932292f0c7cca6481ea8029c17a7dd91b063).

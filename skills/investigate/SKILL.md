@@ -35,3 +35,5 @@ Distinguish documented facts, observed behavior, inferences, competing explanati
 - Unanswered facts that affect the next decision.
 
 For greenfield work, investigate requirements, dependencies, and platform constraints, and state that repository history is absent. Stop with the requested explanation or evidence packet; product choices remain the user's.
+
+Adapted from pstack [how](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/how/SKILL.md) and [why](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/why/SKILL.md).

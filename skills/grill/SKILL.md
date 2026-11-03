@@ -30,3 +30,5 @@ Cover decisions necessary for this request, not every possible future feature. S
 Present the intended behavior, observable acceptance criteria, scope exclusions, and material tradeoffs, with unresolved matters explicit. Obtain agreement before dependent work. Existing explicit agreement for the same scope satisfies this checkpoint.
 
 Return the confirmed requirement and its reasons, referenced evidence, unresolved questions, and next requested stage. Keep technical testing choices with the agent unless they change a material product decision.
+
+Adapted from Matt Pocock's [grilling](https://github.com/mattpocock/skills/blob/3cca18b368ae95cdbdebbff572ccafa662551015/skills/productivity/grilling/SKILL.md).

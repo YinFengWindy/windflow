@@ -33,3 +33,5 @@ For specs and designs, separate confirmed behavior, decisions and reasons, assum
 For PRs and delivery reports, explain the concrete problem, resulting behavior, necessary implementation detail, relevant verification, and material limits. Link detailed logs. Do not turn tentative evidence into certainty or describe a planned action as completed.
 
 Write and edit as one pass where possible, then check factual claims, links, and examples against their sources. Return or update the requested artifact. Writing does not authorize publication, add approvals, or expand the underlying work.
+
+Integrates pstack [unslop](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/unslop/SKILL.md) and [technical-writing](https://github.com/cursor/plugins/blob/ae5650febf4320793844c12c4adaa937f417f8da/pstack/skills/technical-writing/SKILL.md).

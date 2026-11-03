@@ -104,6 +104,6 @@ flowchart TD
 
 `plan`、`implement`、`verify`、`review`、`ship` 按本项目的阶段职责编写。`plan` 保留了先前适配的 `to-spec`、`to-tickets` 中的规格和切片方法，流程和确认规则由 Windflow 定义。
 
-参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。具体版本、适配范围和许可证见[来源声明](THIRD_PARTY_NOTICES.md)、[版本锁定](upstream-lock.json)及各 skill 随包携带的声明。
+参考 [Matt Pocock 的 skills](https://github.com/mattpocock/skills) 和 [Lauren Tan 的 pstack](https://github.com/cursor/plugins/tree/main/pstack)。具体版本与适配范围统一记录在[来源声明](THIRD_PARTY_NOTICES.md)和[版本锁定](upstream-lock.json)中；各 skill 保留自己的许可证文件。
 
 MIT，见 [LICENSE](LICENSE)。

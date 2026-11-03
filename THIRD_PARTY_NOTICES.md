@@ -20,7 +20,7 @@ Windflow is a collection of independently installable skills and an optional coo
 
 [matt-skills-with-to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/tree/974c932292f0c7cca6481ea8029c17a7dd91b063) informs readiness markers and optional evidence-bearing handoffs. These do not authorize automatic task creation or add a mandatory goal stage.
 
-Each installed skill includes its applicable attribution and MIT copyright notices. The original upstream entrypoint names are preserved in attribution; they are not separate Windflow skill aliases. Upstream authors do not endorse Windflow's authorization, validation, or review policies.
+Each adapted skill briefly names its source and retains applicable MIT copyright notices in its license file. The original upstream entrypoint names are preserved in attribution; they are not separate Windflow skill aliases. Upstream authors do not endorse Windflow's authorization, validation, or review policies.
 
 ## MIT notices
 
